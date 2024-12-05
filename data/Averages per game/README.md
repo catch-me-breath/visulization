@@ -1,1 +1,1 @@
-The Celtics team's average data per game is recorded here
+This is the field record data for the Celtic team
