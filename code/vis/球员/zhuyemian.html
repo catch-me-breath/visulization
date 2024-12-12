@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>球员</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .rectangle {
+            width: 80%;
+            height: 300px;
+            background-color: #01723D;
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        .rectangle img {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            width: 30%;
+            height: auto;
+            transform: translateY(-50%);
+        }
+
+        .rectangle h2 {
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            transform: translate(-50%, -50%);
+            font-size: 36px;
+        }
+        .button-container {
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #01723D;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:first-child {
+        margin-left: 10%;
+        }
+        button:hover {
+            background-color: #005a2b;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            display: none;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #01723D;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+
+        tr:hover {
+            background-color: #f39c12;
+            color: white;
+        }
+
+         a {
+            text-decoration: none;   /* 去掉链接下划线 */
+            color: #3498db;          /* 设置链接颜色 */
+        }
+
+        a:hover {
+            text-decoration: underline; /* 添加悬停时的下划线 */
+        }
+    </style>
+</head>
+<body>
+<div class="rectangle">
+    <img src="image/b7fd5266d0160924349f1d466ff0cff4e7cd343f.jpeg" alt="矩形上的图片">
+    <h2>凯尔特人</h2>
+</div>
+
+<div class="button-container">
+    <button id="btn-table1">常规赛</button>
+    <button id="btn-table2">季后赛</button>
+</div>
+
+
+<table id="table1">
+    <thead>
+        <tr>
+            <th>球员</th>
+            <th>出场时间</th>
+            <th>得分</th>
+            <th>篮板</th>
+            <th>助攻</th>
+            <th>抢断</th>
+            <th>盖帽</th>
+            <th>投篮命中率</th>
+            <th>三分命中率</th>
+            <th>罚篮命中率</th>
+            <th>失误</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+
+<table id="table2">
+    <thead>
+        <tr>
+            <th>球员</th>
+            <th>出场时间</th>
+            <th>得分</th>
+            <th>篮板</th>
+            <th>助攻</th>
+            <th>抢断</th>
+            <th>盖帽</th>
+            <th>投篮命中率</th>
+            <th>三分命中率</th>
+            <th>罚篮命中率</th>
+            <th>失误</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+    <script>
+        // 表格数据
+        const data1 = [
+            ["<a href='塔图姆.html'>塔图姆</a>", "35.8", "26.9", "8.1", "4.9", "1", "0.6", "47.20%", "37.60%", "83.30%", "2.5"],
+            ["<a href='布朗.html'>布朗</a>", "33.5", "23", "5.5", "3.3", "1.2", "0.5", "49.90%", "35.40%", "70.30%", "2.4"],
+            ["<a href='波尔津吉斯.html'>波尔津吉斯</a>", "29.6", "20.1", "7.2", "2", "0.7", "1.9", "51.60%", "37.50%", "85.80%", "1.6"],
+            ["<a href='怀特.html'>怀特</a>", "32.6", "15.2", "4.2", "5.2", "1", "1.2", "46.10%", "39.60%", "90.10%", "1.5"],
+            ["<a href='霍乐迪.html'>霍乐迪</a>", "32.8", "12.5", "5.4", "4.8", "0.9", "0.8", "48.00%", "42.90%", "83.30%", "1.8"],
+            ["<a href='普理查德.html'>普理查德</a>", "22.2", "9.6", "3.2", "3.4", "0.5", "0.1", "46.80%", "38.50%", "82.10%", "0.7"],
+            ["<a href='豪瑟.html'>豪瑟</a>", "22.1", "9", "3.5", "1", "0.5", "0.3", "44.70%", "42.50%", "89.50%", "0.4"],
+            ["<a href='霍福德.html'>霍福德</a>", "26.8", "8.6", "6.3", "2.6", "0.6", "1", "51.20%", "42.00%", "86.70%", "0.7"],
+            ["<a href='克塔.html'>克塔</a>", "11.9", "5.5", "4.4", "0.7", "0.5", "0.8", "64.40%", "0.00%", "71.40%", "0.5"],
+            ["<a href='科内特.html'>科内特</a>", "15.7", "5.3", "4.1", "1.1", "0.3", "1", "70.00%", "100.00%", "90.70%", "0.3"],
+            ["<a href='米哈伊柳克.html'>米哈伊柳克</a>", "10.1", "4", "1.2", "0.9", "0.3", "0", "41.60%", "38.90%", "66.70%", "0.3"],
+            ["<a href='蒂尔曼.html'>蒂尔曼</a>", "13.7", "4", "2.7", "1", "0.5", "0.5", "51.50%", "28.60%", "57.10%", "0.3"],
+            ["<a href='布里赛特.html'>布里赛特</a>", "11.5", "3.7", "2.9", "0.8", "0.3", "0.1", "44.40%", "27.30%", "60.20%", "0.4"],
+            ["<a href='斯普林格.html'>斯普林格</a>", "7.8", "2.1", "1.2", "0.5", "0.6", "0.2", "43.30%", "18.20%", "87.50%", "0.5"],
+            ["<a href='戴维森.html'>戴维森</a>", "4.9", "2", "1.3", "1.3", "0.1", "0.1", "41.70%", "42.90%", "75.00%", "0.3"],
+            ["<a href='沃尔什.html'>沃尔什</a>", "9.2", "1.7", "2.2", "0.6", "0.6", "0.1", "40.00%", "22.20%", "50.00%", "0.3"],
+            ["<a href='彼得森.html'>彼得森</a>", "0", "0", "0", "0", "0", "0", "0.00%", "0.00%", "0.00%", "0"]
+        ];
+
+
+        const data2 = [
+            ["<a href='塔图姆.html'>塔图姆</a>", "40.5", "25", "9.7", "6.3", "1.1", "0.7", "42.70%", "28.30%", "86.10%", "2.6"],
+            ["<a href='布朗.html'>布朗</a>", "37.1", "23.9", "5.9", "3.3", "1.2", "0.6", "51.60%", "32.70%", "66.00%", "2.7"],
+            ["<a href='波尔津吉斯.html'>波尔津吉斯</a>", "23.6", "12.3", "4.4", "1.1", "0.7", "1.6", "46.70%", "34.50%", "90.90%", "0.7"],
+            ["<a href='怀特.html'>怀特</a>", "35.6", "16.7", "4.3", "4.1", "0.9", "1.2", "45.20%", "40.40%", "92.10%", "0.8"],
+            ["<a href='霍乐迪.html'>霍乐迪</a>", "37.9", "13.2", "6.1", "4.4", "1.1", "0.6", "50.30%", "40.20%", "95.50%", "1.5"],
+            ["<a href='普理查德.html'>普理查德</a>", "18.6", "6.4", "1.9", "2.1", "0.2", "0", "41.90%", "38.30%", "91.70%", "0.7"],
+            ["<a href='豪瑟.html'>豪瑟</a>", "14.8", "5.4", "2.2", "0.6", "0.3", "0.2", "42.90%", "38.00%", "100.00%", "0.2"],
+            ["<a href='霍福德.html'>霍福德</a>", "30.3", "9.2", "7", "2.1", "0.8", "0.8", "47.80%", "36.80%", "63.60%", "0.6"],
+            ["<a href='克塔.html'>克塔</a>", "4.3", "1.3", "1", "0", "0", "0.3", "66.70%", "0.00%", "0.00%", "0"],
+            ["<a href='科内特.html'>科内特</a>", "10.1", "3", "3.2", "0.5", "0.1", "0.4", "66.70%", "0.00%", "84.60%", "0.5"],
+            ["<a href='米哈伊柳克.html'>米哈伊柳克</a>", "4", "1", "0.6", "0.1", "0.1", "0", "25.00%", "22.20%", "0.00%", "0.3"],
+            ["<a href='蒂尔曼.html'>蒂尔曼</a>", "8.5", "1.5", "1.8", "0.4", "0.4", "0.4", "62.50%", "100.00%", "100.00%", "0.4"],
+            ["<a href='布里赛特.html'>布里赛特</a>", "5.5", "1.6", "1.4", "0", "0.3", "0.2", "54.50%", "100.00%", "50.00%", "0.1"],
+            ["<a href='斯普林格.html'>斯普林格</a>", "5.5", "1", "0.8", "0.3", "0", "0.3", "66.70%", "0.00%", "0.00%", "0.5"],
+            ["<a href='戴维森.html'>戴维森</a>", "0", "0", "0", "0", "0", "0", "0.00%", "0.00%", "0.00%", "0"],
+            ["<a href='沃尔什.html'>沃尔什</a>", "3.7", "0.7", "0", "0", "0", "0", "33.30%", "0.00%", "0.00%", "0"],
+            ["<a href='彼得森.html'>彼得森</a>", "0", "0", "0", "0", "0", "0", "0.00%", "0.00%", "0.00%", "0"]
+        ];
+
+
+        // 初始化表格
+        function populateTable(data, tableId) {
+            const tableBody = document.querySelector(`#${tableId} tbody`);
+            tableBody.innerHTML = "";
+            data.forEach(row => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = row.map(cell => `<td>${cell}</td>`).join("");
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // 初始化数据
+        populateTable(data1, "table1");
+        populateTable(data2, "table2");
+
+        // 切换表格显示
+        const btnTable1 = document.getElementById("btn-table1");
+        const btnTable2 = document.getElementById("btn-table2");
+        const table1 = document.getElementById("table1");
+        const table2 = document.getElementById("table2");
+
+        btnTable1.addEventListener("click", () => {
+            table1.style.display = "table";
+            table2.style.display = "none";
+        });
+
+        btnTable2.addEventListener("click", () => {
+            table2.style.display = "table";
+            table1.style.display = "none";
+        });
+
+        table1.style.display = "table";
+    </script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>塔图姆</title>
+    <style>
+
+        /* 矩形容器 */
+        .rectangle {
+            display: flex;
+            width: 80%;                      /* 矩形宽度 */
+            height: 300px;
+            background-color: #01723D;
+            color: white;
+            margin: 0px auto;                /* 上下外边距，左右居中 */
+        }
+
+        /* 左侧部分 */
+        .left {
+            width: 50%;
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+            padding-left: 20px;
+        }
+
+        /* 右侧部分 */
+        .right {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            padding-left: 20px;
+        }
+
+        /* 右侧的列 */
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;  /* 文字左对齐 */
+            flex: 1;  /* 使两列宽度相等 */
+        }
+
+        /* 按钮表格容器 */
+        .button-table {
+            display: flex;
+            margin-top: 0;
+            width: 80%;
+            margin: 0 auto;
+            justify-content: space-between;
+        }
+
+        /* 按钮样式 */
+        .button-table button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            color: #014F28;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+            margin: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-table button:hover {
+            background-color: green;
+        }
+
+        /* 激活按钮的样式 */
+        .button-table button.active {
+            background-color: green; /* 活动按钮的背景颜色 */
+        }
+
+        /* 内容区的样式 */
+        .content-section {
+            display: none;  /* 默认隐藏所有内容 */
+            margin-top: 20px;
+            width: 100%;  /* 设置宽度为100% */
+            margin: 0 auto;  /* 保持居中对齐 */
+        }
+
+        .content-section.active {
+            display: block;  /* 只有激活的内容区域显示 */
+        }
+
+        /* 灰色背景区域 */
+        .gray-background {
+            background-color: #f0f0f0; /* 设置灰色背景 */
+            padding: 30px 20px;  /* 上下内边距 */
+            width: 80%;  /* 设置宽度为100% */
+            margin: 0 auto;
+            margin-top: 20px;  /* 与前面的内容保持一定间距 */
+            text-align: left;  /* 内容居中 */
+            border-radius: 20px;
+        }
+
+        /* 内容文字样式 */
+        .gray-background h3 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .gray-background p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            margin: 10px 0;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;  /* 去除单元格之间的间距 */
+            margin-top: 20px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .schedule-table th {
+            background-color: #01723D;
+            color: white;
+            font-weight: bold;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .schedule-table tr:hover {
+            background-color: #f1f1f1;  /* 鼠标悬停时变色 */
+        }
+
+        /* 使表格内容更紧凑 */
+        .schedule-table td {
+            font-size: 14px;
+        }
+        .hidden {
+          display: none;
+        }
+        .toggle-buttons {
+          margin-top: 10px;
+        }
+        .toggle-buttons button {
+          padding: 8px 15px;
+          margin-right: 10px;
+          border: 1px solid #ccc;
+          background-color: #f9f9f9;
+          cursor: pointer;
+        }
+        .toggle-buttons button.active {
+          background-color: #007bff;
+          color: #fff;
+          border-color: #007bff;
+        }
+        .canvas-container {
+            display: flex;
+            justify-content: center;  /* 水平居中 */
+            align-items: center;      /* 垂直居中 */
+            height: 100vh;
+        }
+
+        #myRadarChart {
+            width: 50px;
+            height: 50px;
+        }
+        .column img {
+            position: absolute;
+            bottom: 0;                     /* 紧贴矩形的下边界 */
+            left: 0;
+            width: 50%;                   /* 图像宽度适应容器 */
+        }
+        a {
+            text-decoration: none;   /* 去掉链接下划线 */
+            color: #3498db;          /* 设置链接颜色 */
+        }
+
+        a:hover {
+            text-decoration: underline; /* 添加悬停时的下划线 */
+        }
+    </style>
+    <script src="chart.js"></script>
+</head>
+<body>
+
+    <!-- 矩形部分 -->
+    <div class="rectangle">
+        <!-- 左侧部分 -->
+        <div class="left">
+            <div class="column">
+                <img src="image/1.png" alt="Image" >
+            </div>
+
+            <div class="column">
+                <h2>杰森-塔图姆</h2>
+                <p>Jayson Tatum</p>
+                <p>凯尔特人 前锋-小前锋 0号</p>
+            </div>
+        </div>
+
+        <!-- 右侧部分 -->
+        <div class="right">
+            <div class="column">
+                <p>昵称：塔姆图</p>
+                <p>身高：203cm</p>
+                <p>体重：95kg</p>
+                <p>学校：杜克大学</p>
+                <p>选秀： 2017</p>
+            </div>
+
+            <div class="column">
+                <p>薪水：3485万美元</p>
+                <p>年龄：27岁</p>
+                <p>球龄：8年</p>
+                <p>国籍：美国</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 按钮表格部分 -->
+    <div class="button-table">
+        <button class="tab-button" data-target="resume">球员介绍</button>
+        <button class="tab-button" data-target="stats">数据</button>
+        <button class="tab-button" data-target="schedule">赛程</button>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="content-section" id="resume">
+        <div class="gray-background">
+            <h3>球员介绍</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;杰森·塔图姆(英文名:Jayson Tatum，1998年3月3日出生)家乡位于美国密苏里州圣路易斯(St. Louis,Missour)，美国职业篮球运动员，身高203cm，体重95kg，司职小前锋。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;塔图姆高中毕业于密苏里州圣路易斯的査米纳德学院预备学校。高四时，塔图姆场均得到29分、9.1个篮板，入选了2016年麦当劳全美最佳高中生阵容。2016年，杰森·塔图姆进入杜克大学。2016-17赛季，杰森:塔图姆场均出场33.3分钟，得到16.8分、7.3个篮板、2.1次助攻、1.3次抢断以及1.1个盖帽，命中率45.2%，得分和篮板在队内排名第二，最后6场比赛中场均10分5个篮板3次助攻2次抢断2次盖帽的数据也是杜克大学大一新生同期的纪录。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;杰森·塔图姆技术全面，打法成熟，2米03的身高和2米11的臂展可以胜任现代篮球前场两个位置。塔图姆的运动能力不算爆炸，但身体相当协调，动作舒展大方，打球观赏性十足。跳投出色，也善于和外线队友执行挡拆外切战术。防守端，塔图姆脚步扎实，加上臂展出色，身体灵活，具备良好的潜能。塔图姆是一名典型的杜克式球员，团队意识出色，纪律性强，能用正确的方式打球。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2017年6月23日，杰森·塔图姆在首轮第三顺位被波土顿凯尔特人队选中。随后便一直效力于凯尔特人，2020 年 11月 22日，塔图姆和凯尔特人签订 5年价值 1.95 亿美元的续约合同。</p>
+        </div>
+    </div>
+
+    <div class="content-section" id="stats">
+        <div class="gray-background">
+            <h3>数据内容</h3>
+            <div style="position: relative; width: 100%; height: 400px;">
+                <canvas id="myRadarChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section" id="schedule">
+        <div class="gray-background">
+            <h3>赛程内容</h3>
+            <div class ="toggle-buttons">
+                <button id="table1-btn" class="active">常规赛</button>
+                <button id="table2-btn">季后赛</button>
+            </div>
+            <table class="schedule-table" id="table1">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>对手</th>
+                        <th>胜负</th>
+                        <th>出场时间</th>
+                        <th>投篮</th>
+                        <th>三分</th>
+                        <th>罚球</th>
+                        <th>前场</th>
+                        <th>后场</th>
+                        <th>篮板</th>
+                        <th>助攻</th>
+                        <th>犯规</th>
+                        <th>抢断</th>
+                        <th>失误</th>
+                        <th>封盖</th>
+                        <th>得分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据行将由 JavaScript 动态填充 -->
+                </tbody>
+            </table>
+            <table class="schedule-table hidden" id="table2">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>对手</th>
+                        <th>胜负</th>
+                        <th>出场时间</th>
+                        <th>投篮</th>
+                        <th>三分</th>
+                        <th>罚球</th>
+                        <th>前场</th>
+                        <th>后场</th>
+                        <th>篮板</th>
+                        <th>助攻</th>
+                        <th>犯规</th>
+                        <th>抢断</th>
+                        <th>失误</th>
+                        <th>封盖</th>
+                        <th>得分</th>
+                        <th>正负值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据行将由 JavaScript 动态填充 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        // 获取所有的按钮
+        const buttons = document.querySelectorAll('.tab-button');
+
+        // 获取所有的内容区
+        const contentSections = document.querySelectorAll('.content-section');
+        const table1 = document.getElementById("table1");
+        const table2 = document.getElementById("table2");
+        const table1Btn = document.getElementById("table1-btn");
+        const table2Btn = document.getElementById("table2-btn");
+
+        // 设置默认显示的内容（球员简历）
+        document.getElementById('resume').classList.add('active');
+        document.querySelector('.tab-button[data-target="resume"]').classList.add('active');
+
+        // 添加按钮点击事件
+        table1Btn.addEventListener("click", () => {
+          table1.classList.remove("hidden");
+          table2.classList.add("hidden");
+          table1Btn.classList.add("active");
+          table2Btn.classList.remove("active");
+        });
+
+        table2Btn.addEventListener("click", () => {
+          table2.classList.remove("hidden");
+          table1.classList.add("hidden");
+          table2Btn.classList.add("active");
+          table1Btn.classList.remove("active");
+        });
+
+        // 为每个按钮添加点击事件监听器
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // 移除所有按钮的 active 类
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // 给当前点击的按钮添加 active 类
+            button.classList.add('active');
+
+            // 隐藏所有内容区
+            contentSections.forEach(section => section.classList.remove('active'));
+
+            // 显示当前按钮对应的内容
+            const target = button.getAttribute('data-target');
+            const targetSection = document.getElementById(target);
+            targetSection.classList.add('active');
+          });
+        });
+        const data1 = [["<a href='../赛程/1-常规赛.html'>1</a>", '尼克斯', '胜', 39, '13/22', '3/8', '5/6', 0, 11, 11, 4, 3, 2, 4, 1, 34], ["<a href='../赛程/2-常规赛.html'>2</a>", '热火', '胜', 41, '9/22', '3/10', '1/3', 0, 8, 8, 5, 4, 1, 2, 0, 22], ["<a href='../赛程/3-常规赛.html'>3</a>", '奇才', '胜', 28, '14/21', '4/9', '1/1', 0, 6, 6, 3, 2, 0, 2, 0, 33], ["<a href='../赛程/4-常规赛.html'>4</a>", '步行者', '胜', 27, '9/15', '3/5', '9/10', 2, 10, 12, 4, 1, 0, 2, 0, 30], ["<a href='../赛程/5-常规赛.html'>5</a>", '篮网', '胜', 41, '10/20', '2/11', '7/8', 1, 10, 11, 1, 1, 0, 3, 0, 32], ["<a href='../赛程/6-常规赛.html'>6</a>", '森林狼', '负', 43, '12/22', '2/8', '6/8', 0, 5, 5, 2, 2, 5, 6, 0, 32], ["<a href='../赛程/7-常规赛.html'>7</a>", '76人', '负', 37, '6/14', '2/6', '2/3', 1, 14, 15, 6, 2, 3, 2, 0, 16], ["<a href='../赛程/8-常规赛.html'>8</a>", '篮网', '胜', 33, '6/17', '4/11', '7/9', 1, 9, 10, 3, 1, 0, 2, 0, 23], ["<a href='../赛程/9-常规赛.html'>9</a>", '猛龙', '胜', 34, '10/18', '3/9', '4/6', 0, 5, 5, 4, 2, 0, 1, 1, 27], ["<a href='../赛程/10-常规赛.html'>10</a>", '尼克斯', '胜', 39, '13/23', '5/12', '4/5', 1, 5, 6, 7, 5, 1, 3, 0, 35], ["<a href='../赛程/11-常规赛.html'>11</a>", '76人', '胜', 38, '10/23', '4/10', '5/6', 2, 6, 8, 6, 1, 2, 3, 0, 29], ["<a href='../赛程/12-常规赛.html'>12</a>", '猛龙', '胜', 37, '8/22', '1/11', '0/0', 1, 6, 7, 2, 3, 1, 3, 0, 17], ["<a href='../赛程/13-常规赛.html'>13</a>", '灰熊', '胜', 35, '7/13', '1/1', '5/6', 2, 7, 9, 5, 4, 1, 8, 1, 20], ["<a href='../赛程/14-常规赛.html'>14</a>", '黄蜂', '负', 44, '15/28', '7/15', '8/10', 0, 13, 13, 6, 1, 0, 3, 2, 45], ["<a href='../赛程/15-常规赛.html'>15</a>", '雄鹿', '胜', 36, '7/17', '2/9', '7/9', 0, 11, 11, 4, 2, 0, 2, 1, 23], ["<a href='../赛程/16-常规赛.html'>16</a>", '魔术', '负', 39, '7/16', '0/3', '12/13', 0, 5, 5, 3, 3, 2, 2, 0, 26], ["<a href='../赛程/17-常规赛.html'>17</a>", '老鹰', '胜', 39, '11/25', '5/13', '7/10', 1, 8, 9, 4, 2, 2, 6, 0, 34], ["<a href='../赛程/18-常规赛.html'>18</a>", '公牛', '胜', 36, '8/16', '2/8', '3/3', 1, 6, 7, 4, 2, 0, 4, 0, 21], ["<a href='../赛程/19-常规赛.html'>19</a>", '76人', '胜', 27, '6/9', '2/5', '7/9', 0, 7, 7, 4, 1, 1, 7, 1, 21], ["<a href='../赛程/20-常规赛.html'>20</a>", '步行者', '负', 37, '13/26', '2/8', '4/7', 1, 11, 12, 6, 2, 1, 2, 0, 32], ["<a href='../赛程/21-常规赛.html'>21</a>", '尼克斯', '胜', 39, '8/18', '3/9', '6/8', 0, 6, 6, 5, 3, 1, 0, 0, 25], ["<a href='../赛程/22-常规赛.html'>22</a>", '骑士', '胜', 41, '7/19', '2/9', '9/9', 0, 10, 10, 5, 3, 0, 4, 2, 25], ["<a href='../赛程/23-常规赛.html'>23</a>", '骑士', '胜', 36, '9/22', '3/10', '6/8', 3, 8, 11, 3, 1, 0, 3, 3, 27], ["<a href='../赛程/24-常规赛.html'>24</a>", '魔术', '胜', 39, '11/22', '2/9', '6/9', 0, 6, 6, 4, 3, 0, 2, 0, 30], ["<a href='../赛程/25-常规赛.html'>25</a>", '魔术', '胜', 31, '8/21', '4/6', '3/4', 3, 5, 8, 3, 3, 0, 1, 1, 23], ["<a href='../赛程/26-常规赛.html'>26</a>", '勇士', '负', 41, '5/17', '2/9', '3/3', 3, 5, 8, 7, 0, 2, 0, 0, 15], ["<a href='../赛程/28-常规赛.html'>28</a>", '快船', '胜', 30, '9/16', '5/10', '7/9', 0, 5, 5, 2, 0, 1, 2, 0, 30], ["<a href='../赛程/29-常规赛.html'>29</a>", '湖人', '胜', 41, '6/15', '1/6', '12/13', 0, 8, 8, 7, 0, 0, 1, 1, 25], ["<a href='../赛程/30-常规赛.html'>30</a>", '活塞', '胜', 43, '11/31', '2/11', '7/8', 2, 5, 7, 10, 4, 5, 3, 0, 31], ["<a href='../赛程/32-常规赛.html'>32</a>", '马刺', '胜', 31, '10/17', '5/10', '0/0', 1, 5, 6, 2, 1, 0, 3, 2, 25], ["<a href='../赛程/33-常规赛.html'>33</a>", '雷霆', '负', 38, '10/21', '2/5', '8/10', 5, 8, 13, 8, 3, 1, 4, 0, 30], ["<a href='../赛程/34-常规赛.html'>34</a>", '爵士', '胜', 25, '6/12', '5/8', '13/14', 0, 9, 9, 5, 1, 1, 1, 1, 30], ["<a href='../赛程/35-常规赛.html'>35</a>", '步行者', '胜', 38, '14/23', '8/13', '2/4', 1, 12, 13, 6, 4, 1, 4, 0, 38], ["<a href='../赛程/37-常规赛.html'>37</a>", '森林狼', '胜', 42, '13/26', '6/11', '13/14', 0, 4, 4, 2, 3, 1, 1, 0, 45], ["<a href='../赛程/38-常规赛.html'>38</a>", '雄鹿', '负', 16, '2/6', '0/1', '3/4', 0, 1, 1, 3, 2, 0, 1, 0, 7], ["<a href='../赛程/39-常规赛.html'>39</a>", '火箭', '胜', 29, '9/17', '4/7', '5/7', 1, 7, 8, 5, 2, 1, 2, 1, 27], ["<a href='../赛程/40-常规赛.html'>40</a>", '猛龙', '胜', 37, '7/19', '1/6', '4/4', 0, 14, 14, 6, 2, 1, 1, 1, 19], ["<a href='../赛程/41-常规赛.html'>41</a>", '马刺', '胜', 32, '9/21', '3/8', '3/5', 0, 5, 5, 2, 2, 0, 2, 0, 24], ["<a href='../赛程/42-常规赛.html'>42</a>", '掘金', '负', 39, '9/24', '1/8', '3/3', 2, 6, 8, 5, 1, 1, 0, 0, 22], ["<a href='../赛程/43-常规赛.html'>43</a>", '火箭', '胜', 35, '4/17', '1/6', '9/12', 1, 6, 7, 3, 0, 1, 2, 0, 18], ["<a href='../赛程/44-常规赛.html'>44</a>", '独行侠', '胜', 41, '11/21', '2/8', '15/19', 0, 11, 11, 5, 4, 3, 0, 2, 39], ["<a href='../赛程/45-常规赛.html'>45</a>", '热火', '胜', 32, '7/15', '3/7', '9/10', 1, 7, 8, 4, 1, 0, 1, 0, 26], ["<a href='../赛程/46-常规赛.html'>46</a>", '快船', '负', 30, '8/18', '2/4', '3/3', 3, 8, 11, 1, 2, 0, 3, 1, 21], ["<a href='../赛程/47-常规赛.html'>47</a>", '鹈鹕', '胜', 37, '10/18', '2/8', '6/7', 0, 10, 10, 8, 1, 3, 7, 1, 28], ["<a href='../赛程/48-常规赛.html'>48</a>", '步行者', '胜', 39, '12/19', '4/9', '2/3', 0, 7, 7, 7, 2, 1, 2, 2, 30], ["<a href='../赛程/49-常规赛.html'>49</a>", '湖人', '负', 37, '8/21', '5/10', '2/2', 2, 5, 7, 3, 3, 1, 2, 1, 23], ["<a href='../赛程/50-常规赛.html'>50</a>", '灰熊', '胜', 31, '12/22', '6/12', '4/4', 1, 7, 8, 7, 1, 1, 2, 0, 34], ["<a href='../赛程/51-常规赛.html'>51</a>", '老鹰', '胜', 36, '8/21', '2/13', '2/2', 0, 9, 9, 7, 3, 1, 3, 0, 20], ["<a href='../赛程/52-常规赛.html'>52</a>", '奇才', '胜', 38, '12/22', '3/10', '8/9', 1, 9, 10, 8, 1, 1, 2, 2, 35], ["<a href='../赛程/53-常规赛.html'>53</a>", '热火', '胜', 39, '11/20', '2/6', '2/2', 1, 9, 10, 9, 1, 0, 1, 2, 26], ["<a href='../赛程/54-常规赛.html'>54</a>", '篮网', '胜', 39, '14/26', '5/11', '8/8', 0, 14, 14, 5, 3, 2, 2, 1, 41], ["<a href='../赛程/55-常规赛.html'>55</a>", '篮网', '胜', 28, '7/16', '2/7', '4/5', 1, 6, 7, 9, 0, 0, 1, 0, 20], ["<a href='../赛程/56-常规赛.html'>56</a>", '公牛', '胜', 35, '8/17', '5/10', '4/6', 0, 7, 7, 5, 3, 3, 3, 0, 25], ["<a href='../赛程/57-常规赛.html'>57</a>", '尼克斯', '胜', 43, '7/15', '2/8', '3/4', 1, 5, 6, 6, 3, 2, 4, 1, 19], ["<a href='../赛程/58-常规赛.html'>58</a>", '76人', '胜', 35, '9/20', '1/7', '10/11', 0, 11, 11, 8, 1, 0, 1, 1, 29], ["<a href='../赛程/59-常规赛.html'>59</a>", '独行侠', '胜', 37, '10/19', '5/9', '7/7', 0, 8, 8, 3, 2, 0, 4, 0, 32], ["<a href='../赛程/60-常规赛.html'>60</a>", '勇士', '胜', 25, '9/13', '4/5', '5/5', 0, 3, 3, 5, 2, 1, 0, 1, 27], ["<a href='../赛程/61-常规赛.html'>61</a>", '骑士', '负', 38, '8/21', '5/9', '5/6', 2, 11, 13, 2, 3, 0, 2, 0, 26], ["<a href='../赛程/62-常规赛.html'>62</a>", '掘金', '负', 39, '5/13', '2/5', '3/4', 1, 3, 4, 8, 4, 2, 5, 0, 15], ["<a href='../赛程/63-常规赛.html'>63</a>", '太阳', '胜', 42, '11/28', '5/9', '2/2', 3, 7, 10, 7, 0, 1, 4, 0, 29], ["<a href='../赛程/64-常规赛.html'>64</a>", '开拓者', '胜', 36, '9/23', '2/8', '6/8', 0, 5, 5, 8, 0, 0, 1, 0, 26], ["<a href='../赛程/65-常规赛.html'>65</a>", '爵士', '胜', 34, '13/25', '4/10', '8/8', 2, 4, 6, 2, 3, 0, 3, 1, 38], ["<a href='../赛程/66-常规赛.html'>66</a>", '太阳', '胜', 33, '10/18', '4/8', '2/3', 1, 4, 5, 5, 3, 0, 3, 0, 26], ["<a href='../赛程/67-常规赛.html'>67</a>", '奇才', '胜', 27, '8/17', '6/12', '8/10', 0, 6, 6, 6, 1, 3, 2, 1, 30], ["<a href='../赛程/69-常规赛.html'>69</a>", '雄鹿', '胜', 39, '9/19', '4/7', '9/10', 0, 8, 8, 4, 2, 3, 2, 2, 31], ["<a href='../赛程/71-常规赛.html'>71</a>", '公牛', '胜', 37, '8/20', '2/7', '8/9', 1, 1, 2, 6, 1, 1, 5, 1, 26], ["<a href='../赛程/72-常规赛.html'>72</a>", '老鹰', '负', 39, '13/26', '2/7', '9/11', 2, 6, 8, 5, 1, 2, 2, 1, 37], ["<a href='../赛程/73-常规赛.html'>73</a>", '老鹰', '负', 45, '9/22', '2/7', '11/13', 3, 10, 13, 6, 3, 0, 2, 0, 31], ["<a href='../赛程/74-常规赛.html'>74</a>", '鹈鹕', '胜', 35, '10/17', '3/6', '0/0', 1, 8, 9, 4, 1, 0, 4, 0, 23], ["<a href='../赛程/75-常规赛.html'>75</a>", '黄蜂', '胜', 34, '9/19', '4/10', '3/3', 0, 10, 10, 4, 2, 2, 4, 1, 25], ["<a href='../赛程/76-常规赛.html'>76</a>", '雷霆', '胜', 29, '7/15', '2/5', '8/8', 3, 4, 7, 3, 2, 1, 0, 0, 24], ["<a href='../赛程/77-常规赛.html'>77</a>", '国王', '胜', 32, '5/15', '1/6', '6/8', 0, 6, 6, 5, 0, 0, 3, 0, 17], ["<a href='../赛程/79-常规赛.html'>79</a>", '雄鹿', '负', 37, '9/19', '4/9', '0/0', 0, 5, 5, 6, 1, 0, 2, 1, 22], ["<a href='../赛程/80-常规赛.html'>80</a>", '尼克斯', '负', 32, '5/13', '1/7', '7/9', 1, 3, 4, 7, 3, 2, 2, 1, 18]];
+
+        const data2 = [["<a href='../赛程/热火G1.html'>G1</a>", '热火', '胜', 41, '7/18', '1/8', '8/8', 1, 9, 10, 10, 4, 2, 3, 0, 23, 3], ["<a href='../赛程/热火G2.html'>G2</a>", '热火', '负', 41, '10/20', '2/6', '6/8', 0, 8, 8, 3, 3, 0, 3, 1, 28, 6], ["<a href='../赛程/热火G3.html'>G3</a>", '热火', '胜', 39, '6/16', '2/7', '8/12', 0, 11, 11, 6, 3, 0, 0, 1, 22, 22], ["<a href='../赛程/热火G4.html'>G4</a>", '热火', '胜', 37, '5/14', '2/6', '8/8', 0, 11, 11, 5, 3, 0, 1, 0, 20, 12], ["<a href='../赛程/热火G5.html'>G5</a>", '热火', '胜', 32, '4/9', '2/4', '6/9', 0, 12, 12, 3, 2, 0, 2, 1, 16, 35], ["<a href='../赛程/骑士G1.html'>G1</a>", '骑士', '胜', 35, '7/19', '0/5', '4/4', 2, 9, 11, 5, 3, 0, 1, 3, 18, 18], ["<a href='../赛程/骑士G2.html'>G2</a>", '骑士', '负', 38, '7/17', '2/5', '9/11', 0, 7, 7, 6, 3, 1, 1, 0, 25, -22], ["<a href='../赛程/骑士G3.html'>G3</a>", '骑士', '胜', 42, '11/25', '2/8', '9/9', 1, 12, 13, 6, 2, 1, 5, 1, 33, 8], ["<a href='../赛程/骑士G4.html'>G4</a>", '骑士', '胜', 44, '11/25', '2/8', '9/9', 2, 9, 11, 5, 2, 2, 4, 1, 33, 6], ["<a href='../赛程/骑士G5.html'>G5</a>", '骑士', '胜', 43, '9/16', '3/7', '4/4', 0, 10, 10, 9, 3, 4, 1, 0, 25, 18], ["<a href='../赛程/步行者G1.html'>G1</a>", '步行者', '胜', 46, '12/26', '2/8', '10/12', 2, 10, 12, 4, 4, 3, 4, 0, 36, 20], ["<a href='../赛程/步行者G2.html'>G2</a>", '步行者', '胜', 42, '9/20', '1/7', '4/4', 1, 5, 6, 5, 3, 0, 4, 0, 23, 0], ["<a href='../赛程/步行者G3.html'>G3</a>", '步行者', '胜', 44, '12/23', '5/10', '7/11', 1, 9, 10, 8, 3, 1, 0, 2, 36, 9], ["<a href='../赛程/步行者G4.html'>G4</a>", '步行者', '胜', 44, '11/26', '3/11', '1/1', 3, 10, 13, 8, 5, 1, 5, 0, 26, 6], ["<a href='../赛程/独行侠G1.html'>G1</a>", '独行侠', '胜', 42, '6/16', '3/7', '1/2', 2, 9, 11, 5, 1, 0, 6, 1, 16, 19], ["<a href='../赛程/独行侠G2.html'>G2</a>", '独行侠', '胜', 45, '6/22', '1/7', '5/6', 1, 8, 9, 12, 2, 1, 3, 0, 18, 6], ["<a href='../赛程/独行侠G3.html'>G3</a>", '独行侠', '胜', 42, '11/26', '4/13', '5/5', 0, 6, 6, 5, 2, 1, 2, 0, 31, -4], ["<a href='../赛程/独行侠G4.html'>G4</a>", '独行侠', '负', 27, '4/10', '1/4', '6/6', 0, 5, 5, 3, 4, 1, 3, 2, 15, -33], ["<a href='../赛程/独行侠G5.html'>G5</a>", '独行侠', '胜', 45, '11/24', '1/7', '8/8', 1, 7, 8, 11, 2, 2, 2, 0, 31, 18]];
+
+        // 获取表格的 tbody 元素
+        const tableBody1 = document.getElementById('table1').getElementsByTagName('tbody')[0];
+
+// 遍历数据并生成表格行
+        data1.forEach(gameData => {
+            const row = document.createElement('tr');  // 创建一行
+
+            gameData.forEach(cellData => {
+                const cell = document.createElement('td');  // 创建单元格
+                cell.innerHTML = cellData;  // 使用 innerHTML 设置单元格的内容，以便解析 HTML 标签
+                row.appendChild(cell);  // 将单元格添加到行
+            });
+
+            tableBody1.appendChild(row);  // 将行添加到表格
+        });
+
+        const tableBody2 = document.getElementById('table2').getElementsByTagName('tbody')[0];
+
+        // 遍历数据并生成表格行
+        data2.forEach(gameData => {
+            const row = document.createElement('tr');  // 创建一行
+
+            gameData.forEach(cellData => {
+                const cell = document.createElement('td');  // 创建单元格
+                cell.innerHTML = cellData;  // 使用 innerHTML 设置单元格的内容，以便解析 HTML 标签
+                row.appendChild(cell);  // 将单元格添加到行
+            });
+
+            tableBody2.appendChild(row);  // 将行添加到表格
+        });
+
+        // 原始数据
+        const labels = ['得分', '篮板', '助攻', '抢断', '盖帽', '投篮命中率', '三分命中率', '失误'];
+        const rawDataA = [26.9,8.1,4.9,1,0.6,47.2,37.6,2.5]; // 球员A的数据
+        const rawDataB = [25,9.7,6.3,1.1,0.7,42.7,28.3,2.6]; // 球员B的数据
+
+        // 每个维度的最大值
+        const maxValues = [40, 15, 10, 5, 3, 100, 100, 5]; // 每个维度的最大值
+
+        // 数据归一化
+        const normalizeData = (data) => {
+            return data.map((value, index) => value / maxValues[index]);
+        };
+
+        const normalizedDataA = normalizeData(rawDataA); // 球员A的归一化数据
+        const normalizedDataB = normalizeData(rawDataB); // 球员B的归一化数据
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: '常规赛',
+                data: normalizedDataA,  // 球员A的归一化数据
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                fill: true, // 填充区域
+                pointRadius: 0, // 隐藏数据点
+            }, {
+                label: '季后赛',
+                data: normalizedDataB,  // 球员B的归一化数据
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: true, // 填充区域
+                pointRadius: 0, // 隐藏数据点
+            }]
+        };
+
+        // 配置
+        const config = {
+            type: 'radar',
+            data: data,
+            options: {
+                responsive: true,  // 启用响应式设计
+                maintainAspectRatio: false,  // 不固定宽高比
+                scales: {
+                    r: {
+                        beginAtZero: true, // 从0开始
+                        min: 0, // 最小值
+                        max: 1, // 所有数据归一化后，最大值为1
+                        ticks: {
+                            display: false, // 显示刻度标签
+                            stepSize: 0.2, // 每个刻度的步长为0.2，分为5份
+                            font: {
+                                size: 14, // 设置刻度字体大小
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        enabled: false, // 启用工具提示
+                        callbacks: {
+                            // 自定义工具提示内容
+                            label: function(tooltipItem) {
+                                // 获取当前项对应的标签和数据，显示球员A的数据
+                                if (tooltipItem.datasetIndex === 0) {
+                                    return '球员A的 ' + tooltipItem.label + ': ' + (tooltipItem.raw * 100).toFixed(2) + '%'; // 显示球员A数据
+                                }
+                                return null; // 其他数据不显示
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 16, // 设置图例标签字体大小
+                            }
+                        }
+                    },
+                    title: {
+                        display: false, // 隐藏标题
+                    }
+                },
+                elements: {
+                    line: {
+                        borderWidth: 2,  // 设置折线宽度
+                    },
+                    point: {
+                        radius: 4,  // 设置数据点的大小
+                    }
+                }
+            }
+        };
+
+        // 创建雷达图
+        const myRadarChart = new Chart(
+            document.getElementById('myRadarChart'),
+            config
+        );
+    </script>
+
+</body>
+</html>

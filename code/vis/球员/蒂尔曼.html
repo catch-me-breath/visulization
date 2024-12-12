@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蒂尔曼</title>
+    <style>
+        a {
+            text-decoration: none;   /* 去掉链接下划线 */
+            color: #3498db;          /* 设置链接颜色 */
+        }
+
+        a:hover {
+            text-decoration: underline; /* 添加悬停时的下划线 */
+        }
+        /* 矩形容器 */
+        .rectangle {
+            display: flex;
+            width: 80%;                      /* 矩形宽度 */
+            height: 300px;
+            background-color: #01723D;
+            color: white;
+            margin: 0px auto;                /* 上下外边距，左右居中 */
+        }
+
+        /* 左侧部分 */
+        .left {
+            width: 50%;
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+            padding-left: 20px;
+        }
+
+        /* 右侧部分 */
+        .right {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+            padding-left: 20px;
+        }
+
+        /* 右侧的列 */
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;  /* 文字左对齐 */
+            flex: 1;  /* 使两列宽度相等 */
+        }
+
+        /* 按钮表格容器 */
+        .button-table {
+            display: flex;
+            margin-top: 0;
+            width: 80%;
+            margin: 0 auto;
+            justify-content: space-between;
+        }
+
+        /* 按钮样式 */
+        .button-table button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            color: #014F28;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+            box-sizing: border-box;
+            margin: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-table button:hover {
+            background-color: green;
+        }
+
+        /* 激活按钮的样式 */
+        .button-table button.active {
+            background-color: green; /* 活动按钮的背景颜色 */
+        }
+
+        /* 内容区的样式 */
+        .content-section {
+            display: none;  /* 默认隐藏所有内容 */
+            margin-top: 20px;
+            width: 100%;  /* 设置宽度为100% */
+            margin: 0 auto;  /* 保持居中对齐 */
+        }
+
+        .content-section.active {
+            display: block;  /* 只有激活的内容区域显示 */
+        }
+
+        /* 灰色背景区域 */
+        .gray-background {
+            background-color: #f0f0f0; /* 设置灰色背景 */
+            padding: 30px 20px;  /* 上下内边距 */
+            width: 80%;  /* 设置宽度为100% */
+            margin: 0 auto;
+            margin-top: 20px;  /* 与前面的内容保持一定间距 */
+            text-align: left;  /* 内容居中 */
+            border-radius: 20px;
+        }
+
+        /* 内容文字样式 */
+        .gray-background h3 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .gray-background p {
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+            margin: 10px 0;
+            color: #333;
+            font-family: Arial, sans-serif;
+        }
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;  /* 去除单元格之间的间距 */
+            margin-top: 20px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .schedule-table th {
+            background-color: #01723D;
+            color: white;
+            font-weight: bold;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .schedule-table tr:hover {
+            background-color: #f1f1f1;  /* 鼠标悬停时变色 */
+        }
+
+        /* 使表格内容更紧凑 */
+        .schedule-table td {
+            font-size: 14px;
+        }
+        .hidden {
+          display: none;
+        }
+        .toggle-buttons {
+          margin-top: 10px;
+        }
+        .toggle-buttons button {
+          padding: 8px 15px;
+          margin-right: 10px;
+          border: 1px solid #ccc;
+          background-color: #f9f9f9;
+          cursor: pointer;
+        }
+        .toggle-buttons button.active {
+          background-color: #007bff;
+          color: #fff;
+          border-color: #007bff;
+        }
+        .canvas-container {
+            display: flex;
+            justify-content: center;  /* 水平居中 */
+            align-items: center;      /* 垂直居中 */
+            height: 100vh;
+        }
+
+        #myRadarChart {
+            width: 50px;
+            height: 50px;
+        }
+        .column img {
+            position: absolute;
+            bottom: 0;                     /* 紧贴矩形的下边界 */
+            left: 0;
+            width: 50%;                   /* 图像宽度适应容器 */
+        }
+    </style>
+    <script src="chart.js"></script>
+</head>
+<body>
+
+    <!-- 矩形部分 -->
+    <div class="rectangle">
+        <!-- 左侧部分 -->
+        <div class="left">
+            <div class="column">
+                <img src="image/12.png" alt="Image" >
+            </div>
+
+            <div class="column">
+                <h2>泽维尔-蒂尔曼</h2>
+                <p>Xavier Tillman</p>
+                <p>凯尔特人 前锋-大前锋 26号</p>
+            </div>
+        </div>
+
+        <!-- 右侧部分 -->
+        <div class="right">
+            <div class="column">
+                <p>昵称：蒂尔曼</p>
+                <p>身高：203cm</p>
+                <p>体重：111kg</p>
+                <p>学校：密歇根州立大学</p>
+                <p>选秀： 2020</p>
+            </div>
+
+            <div class="column">
+                <p>薪水：193万美元</p>
+                <p>年龄：26岁</p>
+                <p>球龄：5年</p>
+                <p>国籍：美国</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 按钮表格部分 -->
+    <div class="button-table">
+        <button class="tab-button" data-target="resume">球员介绍</button>
+        <button class="tab-button" data-target="stats">数据</button>
+        <button class="tab-button" data-target="schedule">赛程</button>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class="content-section" id="resume">
+        <div class="gray-background">
+            <h3>球员介绍</h3>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;泽维尔-蒂尔曼(英文名:Xavier Tilman 出生于1999年1月12日)家乡密歇根州大急流城，是美国篮球职业运动员，于2020年11月18日加入NBA，现现效力于孟菲斯灰队，司职前锋。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大学时期就读于密歇根州立大学(大三赛季)均得到13.7分 10.4篮板 3.0助攻 2.1次盖帽。</p>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在2020年NBA选秀中首轮第35顺位被萨克拉门托国王队选中，随后交易至孟菲斯灰熊队。蒂尔曼是一名大前锋能够通过内线进攻和投篮制造杀伤，许多得分都来自于冲击篮筐或者进攻篮板，是一名利用场上空间的好手</p>
+
+
+        </div>
+    </div>
+
+    <div class="content-section" id="stats">
+        <div class="gray-background">
+            <h3>数据内容</h3>
+            <div style="position: relative; width: 100%; height: 400px;">
+                <canvas id="myRadarChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section" id="schedule">
+        <div class="gray-background">
+            <h3>赛程内容</h3>
+            <div class ="toggle-buttons">
+                <button id="table1-btn" class="active">常规赛</button>
+                <button id="table2-btn">季后赛</button>
+            </div>
+            <table class="schedule-table" id="table1">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>对手</th>
+                        <th>胜负</th>
+                        <th>出场时间</th>
+                        <th>投篮</th>
+                        <th>三分</th>
+                        <th>罚球</th>
+                        <th>前场</th>
+                        <th>后场</th>
+                        <th>篮板</th>
+                        <th>助攻</th>
+                        <th>犯规</th>
+                        <th>抢断</th>
+                        <th>失误</th>
+                        <th>封盖</th>
+                        <th>得分</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据行将由 JavaScript 动态填充 -->
+                </tbody>
+            </table>
+            <table class="schedule-table hidden" id="table2">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>对手</th>
+                        <th>胜负</th>
+                        <th>出场时间</th>
+                        <th>投篮</th>
+                        <th>三分</th>
+                        <th>罚球</th>
+                        <th>前场</th>
+                        <th>后场</th>
+                        <th>篮板</th>
+                        <th>助攻</th>
+                        <th>犯规</th>
+                        <th>抢断</th>
+                        <th>失误</th>
+                        <th>封盖</th>
+                        <th>得分</th>
+                        <th>正负值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 数据行将由 JavaScript 动态填充 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        // 获取所有的按钮
+        const buttons = document.querySelectorAll('.tab-button');
+
+        // 获取所有的内容区
+        const contentSections = document.querySelectorAll('.content-section');
+        const table1 = document.getElementById("table1");
+        const table2 = document.getElementById("table2");
+        const table1Btn = document.getElementById("table1-btn");
+        const table2Btn = document.getElementById("table2-btn");
+
+        // 设置默认显示的内容（球员简历）
+        document.getElementById('resume').classList.add('active');
+        document.querySelector('.tab-button[data-target="resume"]').classList.add('active');
+
+        // 添加按钮点击事件
+        table1Btn.addEventListener("click", () => {
+          table1.classList.remove("hidden");
+          table2.classList.add("hidden");
+          table1Btn.classList.add("active");
+          table2Btn.classList.remove("active");
+        });
+
+        table2Btn.addEventListener("click", () => {
+          table2.classList.remove("hidden");
+          table1.classList.add("hidden");
+          table2Btn.classList.add("active");
+          table1Btn.classList.remove("active");
+        });
+
+        // 为每个按钮添加点击事件监听器
+        buttons.forEach(button => {
+          button.addEventListener('click', () => {
+            // 移除所有按钮的 active 类
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // 给当前点击的按钮添加 active 类
+            button.classList.add('active');
+
+            // 隐藏所有内容区
+            contentSections.forEach(section => section.classList.remove('active'));
+
+            // 显示当前按钮对应的内容
+            const target = button.getAttribute('data-target');
+            const targetSection = document.getElementById(target);
+            targetSection.classList.add('active');
+          });
+        });
+        const data1 = [["<a href='../赛程/56-常规赛.html'>56</a>", '公牛', '胜', 3, '1/1', '0/0', '0/0', 0, 0, 0, 0, 1, 0, 0, 1, 2], ["<a href='../赛程/59-常规赛.html'>59</a>", '独行侠', '胜', 15, '3/3', '0/0', '0/0', 0, 1, 1, 2, 1, 0, 0, 1, 6], ["<a href='../赛程/60-常规赛.html'>60</a>", '勇士', '胜', 18, '2/4', '1/2', '2/2', 0, 4, 4, 0, 1, 1, 0, 0, 7], ["<a href='../赛程/62-常规赛.html'>62</a>", '掘金', '负', 13, '1/2', '0/1', '0/0', 1, 3, 4, 1, 0, 0, 0, 0, 2], ["<a href='../赛程/65-常规赛.html'>65</a>", '爵士', '胜', 27, '3/5', '1/1', '0/0', 4, 4, 8, 1, 0, 1, 0, 0, 7], ["<a href='../赛程/66-常规赛.html'>66</a>", '太阳', '胜', 18, '2/4', '1/3', '0/0', 1, 3, 4, 1, 3, 0, 0, 1, 5], ["<a href='../赛程/67-常规赛.html'>67</a>", '奇才', '胜', 15, '1/4', '0/3', '1/2', 1, 1, 2, 0, 1, 2, 1, 1, 3], ["<a href='../赛程/68-常规赛.html'>68</a>", '活塞', '胜', 17, '1/2', '0/1', '0/0', 0, 4, 4, 1, 0, 0, 0, 1, 2], ["<a href='../赛程/69-常规赛.html'>69</a>", '雄鹿', '胜', 14, '0/2', '0/2', '0/0', 1, 2, 3, 2, 1, 1, 1, 0, 0], ["<a href='../赛程/70-常规赛.html'>70</a>", '活塞', '胜', 20, '1/2', '0/1', '0/0', 2, 2, 4, 0, 1, 0, 1, 0, 2], ["<a href='../赛程/71-常规赛.html'>71</a>", '公牛', '胜', 11, '1/2', '0/1', '0/0', 0, 2, 2, 2, 1, 0, 0, 0, 2], ["<a href='../赛程/73-常规赛.html'>73</a>", '老鹰', '负', 9, '1/3', '0/2', '0/0', 0, 2, 2, 1, 0, 0, 0, 0, 2], ["<a href='../赛程/74-常规赛.html'>74</a>", '鹈鹕', '胜', 10, '1/3', '0/0', '1/2', 1, 1, 2, 1, 0, 0, 0, 0, 3], ["<a href='../赛程/75-常规赛.html'>75</a>", '黄蜂', '胜', 5, '0/0', '0/0', '0/0', 0, 1, 1, 1, 1, 0, 0, 0, 0], ["<a href='../赛程/77-常规赛.html'>77</a>", '国王', '胜', 19, '4/7', '1/3', '0/0', 1, 3, 4, 2, 0, 0, 0, 0, 9], ["<a href='../赛程/78-常规赛.html'>78</a>", '开拓者', '胜', 17, '4/7', '1/2', '0/0', 0, 5, 5, 1, 0, 1, 0, 2, 9], ["<a href='../赛程/79-常规赛.html'>79</a>", '雄鹿', '负', 18, '2/7', '2/5', '0/0', 0, 0, 0, 2, 1, 1, 0, 2, 6], ["<a href='../赛程/80-常规赛.html'>80</a>", '尼克斯', '负', 6, '1/1', '0/0', '0/0', 0, 0, 0, 1, 0, 0, 0, 0, 2], ["<a href='../赛程/81-常规赛.html'>81</a>", '黄蜂', '胜', 13, '1/3', '0/0', '0/0', 1, 2, 3, 1, 3, 2, 1, 0, 2], ["<a href='../赛程/82-常规赛.html'>82</a>", '奇才', '胜', 6, '4/4', '1/1', '0/1', 1, 0, 1, 0, 0, 0, 1, 0, 9]];
+        const data2 = [["<a href='../赛程/热火G5.html'>G5</a>", '热火', '胜', 7, '1/1', '0/0', '0/0', 0, 1, 1, 1, 1, 1, 0, 1, 2, 3], ["<a href='../赛程/骑士G1.html'>G1</a>", '骑士', '胜', 7, '1/1', '0/0', '0/0', 0, 3, 3, 0, 2, 0, 0, 0, 2, 4], ["<a href='../赛程/骑士G2.html'>G2</a>", '骑士', '负', 11, '0/0', '0/0', '0/0', 0, 2, 2, 1, 0, 1, 0, 0, 0, 6], ["<a href='../赛程/步行者G2.html'>G2</a>", '步行者', '胜', 3, '0/0', '0/0', '0/0', 0, 0, 0, 0, 0, 0, 0, 0, 0, 3], ["<a href='../赛程/步行者G3.html'>G3</a>", '步行者', '胜', 13, '1/1', '0/0', '0/0', 0, 1, 1, 0, 1, 1, 1, 0, 2, 12], ["<a href='../赛程/步行者G4.html'>G4</a>", '步行者', '胜', 9, '0/2', '0/0', '0/0', 2, 0, 2, 0, 0, 0, 1, 0, 0, -2], ["<a href='../赛程/独行侠G3.html'>G3</a>", '独行侠', '胜', 11, '1/1', '1/1', '0/0', 1, 3, 4, 0, 2, 0, 1, 2, 3, 9], ["<a href='../赛程/独行侠G4.html'>G4</a>", '独行侠', '负', 7, '1/2', '0/0', '1/1', 1, 0, 1, 1, 1, 0, 0, 0, 3, -13]];
+
+        // 获取表格的 tbody 元素
+        const tableBody1 = document.getElementById('table1').getElementsByTagName('tbody')[0];
+
+        // 遍历数据并生成表格行
+        data1.forEach(gameData => {
+            const row = document.createElement('tr');  // 创建一行
+
+            gameData.forEach(cellData => {
+                const cell = document.createElement('td');  // 创建单元格
+                cell.innerHTML = cellData;  // 设置单元格的内容
+                row.appendChild(cell);  // 将单元格添加到行
+            });
+
+            tableBody1.appendChild(row);  // 将行添加到表格
+        });
+        const tableBody2 = document.getElementById('table2').getElementsByTagName('tbody')[0];
+
+        // 遍历数据并生成表格行
+        data2.forEach(gameData => {
+            const row = document.createElement('tr');  // 创建一行
+
+            gameData.forEach(cellData => {
+                const cell = document.createElement('td');  // 创建单元格
+                cell.innerHTML = cellData;  // 设置单元格的内容
+                row.appendChild(cell);  // 将单元格添加到行
+            });
+
+            tableBody2.appendChild(row);  // 将行添加到表格
+        });
+        // 原始数据
+        const labels = ['得分', '篮板', '助攻', '抢断', '盖帽', '投篮命中率', '三分命中率', '失误'];
+        const rawDataA = [4,2.7,1,0.5,0.5,51.5,28.6,0.3]; // 球员A的数据
+        const rawDataB = [1.5,1.8,0.4,0.4,0.4,62.5,100,0.4]; // 球员B的数据
+
+        // 每个维度的最大值
+        const maxValues = [40, 15, 10, 5, 3, 100, 100, 5]; // 每个维度的最大值
+
+        // 数据归一化
+        const normalizeData = (data) => {
+            return data.map((value, index) => value / maxValues[index]);
+        };
+
+        const normalizedDataA = normalizeData(rawDataA); // 球员A的归一化数据
+        const normalizedDataB = normalizeData(rawDataB); // 球员B的归一化数据
+
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: '常规赛',
+                data: normalizedDataA,  // 球员A的归一化数据
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+                fill: true, // 填充区域
+                pointRadius: 0, // 隐藏数据点
+            }, {
+                label: '季后赛',
+                data: normalizedDataB,  // 球员B的归一化数据
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+                fill: true, // 填充区域
+                pointRadius: 0, // 隐藏数据点
+            }]
+        };
+
+        // 配置
+        const config = {
+            type: 'radar',
+            data: data,
+            options: {
+                responsive: true,  // 启用响应式设计
+                maintainAspectRatio: false,  // 不固定宽高比
+                scales: {
+                    r: {
+                        beginAtZero: true, // 从0开始
+                        min: 0, // 最小值
+                        max: 1, // 所有数据归一化后，最大值为1
+                        ticks: {
+                            display: false, // 显示刻度标签
+                            stepSize: 0.2, // 每个刻度的步长为0.2，分为5份
+                            font: {
+                                size: 14, // 设置刻度字体大小
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        enabled: false, // 启用工具提示
+                        callbacks: {
+                            // 自定义工具提示内容
+                            label: function(tooltipItem) {
+                                // 获取当前项对应的标签和数据，显示球员A的数据
+                                if (tooltipItem.datasetIndex === 0) {
+                                    return '球员A的 ' + tooltipItem.label + ': ' + (tooltipItem.raw * 100).toFixed(2) + '%'; // 显示球员A数据
+                                }
+                                return null; // 其他数据不显示
+                            }
+                        }
+                    },
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                size: 16, // 设置图例标签字体大小
+                            }
+                        }
+                    },
+                    title: {
+                        display: false, // 隐藏标题
+                    }
+                },
+                elements: {
+                    line: {
+                        borderWidth: 2,  // 设置折线宽度
+                    },
+                    point: {
+                        radius: 4,  // 设置数据点的大小
+                    }
+                }
+            }
+        };
+
+        // 创建雷达图
+        const myRadarChart = new Chart(
+            document.getElementById('myRadarChart'),
+            config
+        );
+    </script>
+
+</body>
+</html>
