@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="keywords" content="凯尔特人赛程,凯尔特人赛程表"/>
+    <meta name="description" content="提供NBA凯尔特人队2023-2024赛程表，包含完整赛程信息。"/>
+    <title>凯尔特人队赛程表2023-2024</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .match-result {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            align-items: center; /* 垂直居中 */
+            justify-content: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #0a3d33; /* 深绿色背景 */
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .team-logo1 {
+            display: flex;
+            align-items: center;
+        }
+        .team-logo {
+            display: flex;
+            align-items: center;
+            width: 50px; /* 调整为所需的宽度 */
+            height: 50px;
+        }
+        .team-name {
+            margin-left: 10px;
+            margin-right: 10px;
+            flex-wrap: nowrap;
+        }
+        .team-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .team-rank {
+            margin-bottom: 5px;
+        }
+        .menu {
+            display: flex;
+            gap: 20px;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+        }
+        .main__container {
+            padding: 20px;
+        }
+        .game__item {
+            margin-bottom: 20px;
+        }
+        .game__list__content {
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            gap: 20px; /* 球队之间的间距 */
+        }
+        .game__list__team {
+            display: flex;
+            align-items: center; /* 确保球队标志和比分在垂直方向居中 */
+            text-align: center; /* 使文本在横向居中 */
+        }
+
+        .game__list__score {
+            font-size: 24px;
+            margin: 0 10px; /* 给比分增加一些左右间距 */
+        }
+        .game__list__score--win {
+            color: green;
+        }
+        .game__list__score--lose {
+            color: red;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .stats-table th, .stats-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        .stats-table th {
+            background-color: #f4f4f4;
+        }
+        .score {
+            font-size: 48px; /* 增大比分字体大小 */
+            margin: 0 20px; /* 调整比分之间的间距 */
+        }
+        time {
+            font-size: 24px; /* 放大时间字体 */
+            font-weight: bold; /* 加粗字体 */
+        }
+        .match-label {
+            font-size: 24px;
+            text-align: center; /* 文本居中 */
+        }
+    </style>
+</head>
+
+<body class="team_container tp__page" data-name="TeamGameScreen">
+    <div class="header">
+        <div class="team-logo1">
+            <img src="图片\\队伍标志.jpg" alt="Team Logo" width="100" height="100">
+            <div class="team-name">
+                <h1>波士顿凯尔特人(Celtics)</h1>
+            </div>
+        </div>
+        <div class="team-info">
+            <div>常规赛排名：东部第一</div>
+            <div>主教练：乔·马祖拉</div>
+            <div>主球场：TD花园球馆</div>
+            <div>成立时间：1946年</div>
+        </div>
+        <div class="menu">
+            <a href="http://localhost:8501/">基本信息</a>
+            <a href="http://localhost:8501/">球队数据</a>
+            <a href="D:\DESKTOP\vis\球员\zhuyemian.html">球员阵容</a>
+            <a href="http://localhost:8501/">赛程安排</a>
+            <a href="D:\DESKTOP\vis\新闻\U1.html">相关新闻</a>
+        </div>
+    </div>
+    <main class="main__container">
+        <section class="main__section__content">
+            <div class="game__item">
+                <time>
+                    <span>2024/5/14</span><br>
+                    <span>07:00</span>
+                </time>
+                <div class="match-label">季后赛</div>
+                <div class="match-result">
+                    <span>凯尔特人</span>
+                    <div class="team">
+                        <img src="logo/凯尔特人.png" alt="凯尔特人" class="team-logo">
+                    </div>
+                    <div class="score">109 - 102</div>
+                    <div class="team">
+                        <img src="logo/骑士.png" alt="骑士" class="team-logo">
+                    </div>
+                    <span>骑士</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 添加统计信息部分 -->
+        <section class="main__section__content">
+            <h2>比赛统计信息</h2>
+            <table class="stats-table">
+                <tr>
+                    <th>球员</th>
+                    <th>出场时间</th>
+                    <th>投篮</th>
+                    <th>三分</th>
+                    <th>罚球</th>
+                    <th>前场篮板</th>
+                    <th>后场篮板</th>
+                    <th>总篮板</th>
+                    <th>助攻</th>
+                    <th>犯规</th>
+                    <th>抢断</th>
+                    <th>失误</th>
+                    <th>封盖</th>
+                    <th>得分</th>
+                    <th>效率值</th>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\霍乐迪.html" target="_blank">霍乐迪</a></td>
+                    <td>43</td>
+                    <td>6/11</td>
+                    <td>4/8</td>
+                    <td>0/0</td>
+                    <td>1</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>16</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\怀特.html" target="_blank">怀特</a></td>
+                    <td>30</td>
+                    <td>1/6</td>
+                    <td>1/4</td>
+                    <td>2/2</td>
+                    <td>1</td>
+                    <td>6</td>
+                    <td>7</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\塔特姆.html" target="_blank">塔特姆</a></td>
+                    <td>44</td>
+                    <td>11/25</td>
+                    <td>2/8</td>
+                    <td>9/9</td>
+                    <td>2</td>
+                    <td>9</td>
+                    <td>11</td>
+                    <td>5</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>4</td>
+                    <td>1</td>
+                    <td>33</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\布朗.html" target="_blank">布朗</a></td>
+                    <td>34</td>
+                    <td>9/15</td>
+                    <td>2/3</td>
+                    <td>7/9</td>
+                    <td>1</td>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>1</td>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>5</td>
+                    <td>0</td>
+                    <td>27</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\霍福德.html" target="_blank">霍福德</a></td>
+                    <td>28</td>
+                    <td>3/9</td>
+                    <td>0/4</td>
+                    <td>0/0</td>
+                    <td>1</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>6</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\普理查德.html" target="_blank">普理查德</a></td>
+                    <td>26</td>
+                    <td>3/5</td>
+                    <td>3/4</td>
+                    <td>2/2</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>11</td>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\科内特.html" target="_blank">科内特</a></td>
+                    <td>19</td>
+                    <td>4/5</td>
+                    <td>0/0</td>
+                    <td>1/2</td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>6</td>
+                    <td>0</td>
+                    <td>3</td>
+                    <td>0</td>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>9</td>
+                    <td>-4</td>
+                </tr>
+                <tr>
+                    <td><a href="D:\DESKTOP\vis\球员\豪瑟.html" target="_blank">豪瑟</a></td>
+                    <td>15</td>
+                    <td>1/2</td>
+                    <td>0/1</td>
+                    <td>0/0</td>
+                    <td>0</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>2</td>
+                    <td>4</td>
+                </tr>
+            </table>
+        </section> 
+    </main> 
+</body> 
+</html>
